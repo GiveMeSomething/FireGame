@@ -26,12 +26,6 @@ public class Control : MonoBehaviour
         Flip();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundPrefab.position, 0.2f, ground);

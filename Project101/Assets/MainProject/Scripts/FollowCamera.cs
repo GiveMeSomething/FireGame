@@ -10,7 +10,10 @@ public class FollowCamera : MonoBehaviour
 
     private Vector2 offset;
 
-    public bool atEdge = false;
+    public bool movable = true;
+
+    private string[] leftLimitAlertClass = { "Bên đó đang cháy đấy. Tớ sợ lắm. Hãy quay lại đi" };
+    private string[] rightLimitAlertClass = { "Không có gì phía trước đâu. Quay lại đi" };
 
     // Use this for initialization
     void Start()
@@ -29,21 +32,25 @@ public class FollowCamera : MonoBehaviour
 
             transform.position = smoothPosition;
         }
-        if (this.transform.position.x >= 18)
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Vector2 savePosition = new Vector2(17f, this.transform.position.y);
-                this.transform.position = savePosition;
-            }
-        }
         if(this.transform.position.x <= 0)
         {
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                Vector2 savePosition = new Vector2(1f, this.transform.position.y);
-                this.transform.position = savePosition;
-            }
+            movable = false;
+
+            Dialogue dialogue = new Dialogue();
+            dialogue.sentences = leftLimitAlertClass;
+            dialogue.name = "Ken";
+
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        }
+        if(this.transform.position.x >= 18)
+        {
+            movable = false;
+
+            Dialogue dialogue = new Dialogue();
+            dialogue.sentences = rightLimitAlertClass;
+            dialogue.name = "Ken";
+
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
         }
     }
 }
