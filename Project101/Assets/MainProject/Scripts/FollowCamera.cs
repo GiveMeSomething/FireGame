@@ -26,6 +26,8 @@ public class FollowCamera : MonoBehaviour
     {
         if (this.transform.position.x < 18 && this.transform.position.x > 0)
         {
+            movable = true;
+
             Vector2 playerPosition2D = new Vector2(player.position.x, this.transform.position.y);
             Vector2 position = playerPosition2D + offset;
             Vector2 smoothPosition = Vector2.Lerp(transform.position, position, smoothSpeed);
@@ -41,6 +43,12 @@ public class FollowCamera : MonoBehaviour
             dialogue.name = "Ken";
 
             FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                Vector2 savePosition = new Vector2(this.transform.position.x + 1, this.transform.position.y);
+                this.transform.position = savePosition;
+            }
         }
         if(this.transform.position.x >= 18)
         {
@@ -51,6 +59,12 @@ public class FollowCamera : MonoBehaviour
             dialogue.name = "Ken";
 
             FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                Vector2 savePosition = new Vector2(this.transform.position.x - 1, this.transform.position.y);
+                this.transform.position = savePosition;
+            }
         }
     }
 }
