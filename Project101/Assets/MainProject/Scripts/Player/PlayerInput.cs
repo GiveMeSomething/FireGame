@@ -7,24 +7,29 @@ public class PlayerInput : MonoBehaviour
     private Control movement;
     private bool isJumping = false;
     private bool isLayDown = false;
-    private bool movable;
+    private bool movable = true;
     private float speed;
     private float x;
     private float y;
+
+
+    private string[] leftLimitAlertClass = { "Bên đó đang cháy đấy. Tớ sợ lắm. Hãy quay lại đi" };
+    private string[] rightLimitAlertClass = { "Không có gì phía trước đâu. Quay lại đi" };
+
     void Awake()
     {
         //References
         movement = GetComponent<Control>();
     }
+
     private void Start()
     {
         x = Input.GetAxis("Horizontal");
-
     }
+
     private void FixedUpdate()
     {
-        FollowCamera followCamera = GameObject.Find("Main Camera").GetComponent<FollowCamera>();
-        movable = followCamera.movable;
+    
         if (movable)
         {
             if (Input.GetKey(KeyCode.A))
