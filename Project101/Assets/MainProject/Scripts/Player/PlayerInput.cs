@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-
+    private Animator animator;
     private Control movement;
+    private GameObject player;
     private bool isJumping = false;
     private bool isLayDown = false;
     private bool movable = true;
+    private bool talkable = true;
     private float speed;
     private float x;
     private float y;
@@ -20,16 +22,43 @@ public class PlayerInput : MonoBehaviour
     {
         //References
         movement = GetComponent<Control>();
+        player = GameObject.Find("Main");
     }
 
     private void Start()
     {
         x = Input.GetAxis("Horizontal");
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
     
+        if(player.transform.position.x <= 1)
+        {
+            movable = false;
+            speed = 0.0f;
+            animator.SetFloat("BlendTreeSpeed", 0.0f);
+            movement.SetSpeed(0.0f);
+            if (isLayDown)
+            {
+                movement.LowMove(speed, isLayDown);
+            }
+            if (!isLayDown)
+            {
+                movement.HighMove(speed, isJumping);
+            }
+
+            Dialogue dialogue = new Dialogue();
+            dialogue.sentences = leftLimitAlertClass;
+            dialogue.name = "Ken";
+            if (talkable)
+            {
+                FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+                movable = true;
+                talkable = false;
+            }
+        }
         if (movable)
         {
             if (Input.GetKey(KeyCode.A))
