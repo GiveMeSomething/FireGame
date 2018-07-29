@@ -9146,7 +9146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &190946303
 Transform:
   m_ObjectHideFlags: 0
@@ -9154,7 +9154,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 190946302}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3114.0002}
+  m_LocalPosition: {x: 115, y: -8, z: -3114.0002}
   m_LocalScale: {x: 34.600002, y: 34.600002, z: 34.600002}
   m_Children:
   - {fileID: 1912618525}
@@ -18190,7 +18190,6 @@ GameObject:
   - component: {fileID: 424645078}
   - component: {fileID: 424645077}
   - component: {fileID: 424645076}
-  - component: {fileID: 424645080}
   m_Layer: 5
   m_Name: DialogueBox
   m_TagString: Untagged
@@ -18271,18 +18270,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 238.80894}
   m_SizeDelta: {x: 500, y: 100.5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &424645080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 424645075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf54a9fc36f0a4648b4a5a458aa02bf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPlayer: {fileID: 808853880}
 --- !u!1 &443305217
 GameObject:
   m_ObjectHideFlags: 0
