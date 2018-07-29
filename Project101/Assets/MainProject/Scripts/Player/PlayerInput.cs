@@ -13,6 +13,7 @@ public class PlayerInput : MonoBehaviour
     private float speed;
     private float x;
     private float y;
+    public float moveSpeed = 10.0f;
 
 
     private string[] leftLimitAlertClass = { "Bên đó đang cháy đấy. Tớ sợ lắm. Hãy quay lại đi" };
@@ -37,30 +38,41 @@ public class PlayerInput : MonoBehaviour
         if(player.transform.position.x <= 1)
         {
             movable = false;
+            talkable = true;
             speed = 0.0f;
+            moveSpeed = 0.0f;
             animator.SetFloat("BlendTreeSpeed", 0.0f);
             movement.SetSpeed(0.0f);
+
             if (isLayDown)
             {
-                movement.LowMove(speed, isLayDown);
+                movement.LowMove(speed, isLayDown, moveSpeed);
             }
             if (!isLayDown)
             {
-                movement.HighMove(speed, isJumping);
+                movement.HighMove(speed, isJumping, moveSpeed);
             }
 
             Dialogue dialogue = new Dialogue();
             dialogue.sentences = leftLimitAlertClass;
             dialogue.name = "Ken";
+
             if (talkable)
             {
                 FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
-                movable = true;
-                talkable = false;
             }
+
+            Vector3 savePosition = new Vector3(this.transform.position.x + 2.0f, this.transform.position.y, 10.0f);
+            this.transform.position = savePosition;
+        }
+        else
+        {
+            movable = true;
+            talkable = true;
         }
         if (movable)
         {
+            moveSpeed = 10.0f;
             if (Input.GetKey(KeyCode.A))
             {
                 if (isLayDown)
@@ -106,11 +118,11 @@ public class PlayerInput : MonoBehaviour
             }
             if (isLayDown)
             {
-                movement.LowMove(speed, isLayDown);
+                movement.LowMove(speed, isLayDown, moveSpeed);
             }
             if (!isLayDown)
             {
-                movement.HighMove(speed, isJumping);
+                movement.HighMove(speed, isJumping, moveSpeed);
             }
         }
     }

@@ -46,9 +46,6 @@ public class DialogueManager : MonoBehaviour {
     public void EndDialogue()
     {
         animator.SetBool("isOpen", false);
-        PlayerInput input = GameObject.Find("Main").GetComponent<PlayerInput>();
-        input.movable = true;
-        input.talkable = true;
     }
 
     IEnumerator TypeSentence(string sentence)

@@ -42,7 +42,7 @@ public class Control : MonoBehaviour
         }
     }
 
-    public void HighMove(float move, bool jump)
+    public void HighMove(float move, bool jump, float speed)
     {
         anim.SetFloat("BlendTreeSpeed", Mathf.Abs(move));
 
@@ -65,12 +65,13 @@ public class Control : MonoBehaviour
         }
     }
 
-    public void LowMove(float move, bool isLayDown)
+    public void LowMove(float move, bool isLayDown, float speed)
     {
         if (isLayDown)
         {
             anim.SetFloat("CrawlingSpeed", Mathf.Abs(move));
             rbody.velocity = new Vector2(move * speed, rbody.velocity.y);
+
             if (move > 0 && !facingRight)
             {
                 Flip();
