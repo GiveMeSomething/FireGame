@@ -22,13 +22,9 @@ public class MenuController : MonoBehaviour {
     {
         SceneManager.LoadScene("BookScene");
     }
-    public void ChangeToPractice()
-    {
-
-    }
     public void ChangeToPlay()
     {
-
+        SceneManager.LoadScene("Main");
     }
 
 }

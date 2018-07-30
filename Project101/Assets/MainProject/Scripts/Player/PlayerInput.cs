@@ -17,6 +17,9 @@ public class PlayerInput : MonoBehaviour
     private bool alerted = false;
     private bool smokeAlertedOne = false;
     private bool smokeAlertedTwo = false;
+    private bool fireOn = false;
+    public bool goOut = true;
+    public bool finishedOption = false;
 
     private float speed;
     private float x;
@@ -29,7 +32,13 @@ public class PlayerInput : MonoBehaviour
     private string[] startClassDialogue = { "Tan học rồi! Đi về thôi." };
     private string[] fireAtDoorAlert = { "Cửa lớp đang cháy kìa. Chúng ta phải thoát ra bằng cửa còn lại thôi!" };
     private string[] smokeAlertEncounter = { "Phía trước nhiều khói quá. Chúng phải nghĩ cách để vượt qua thôi." };
-    private string[] smokeAlertTouch = { "Khó thở quá. Không chạy qua được đâu. Có lẽ chúng ta nên bò qua thôi" };
+    private string[] smokeAlertTouch = { "Khó thở quá. Không đi được đâu. Có lẽ chúng ta nên bò qua thôi" };
+    private string[] escapeDialogue = {
+        "Thật là đáng sợ. May quá lối thoát đây rồi.",
+        "Thôi chết! Mình để quên cặp ở lớp rồi",
+        "Mình có nên quay lại lấy cặp không nhỉ ?"
+    };
+    private string[] doorDialogue = { "Bạn có muốn ra ngoài không ?" };
     
 
     void Awake()
@@ -162,8 +171,10 @@ public class PlayerInput : MonoBehaviour
         if (player.transform.position.x <= 3.5 && !alerted)
         {
             FindObjectOfType<DialogueManager>().EndDialogue();
+
             movable = false;
             talkable = true;
+            fireOn = true;
             speed = 0.0f;
             moveSpeed = 0.0f;
             animator.SetFloat("BlendTreeSpeed", 0.0f);
@@ -196,7 +207,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         //First Encounter With Smoke
-        if (player.transform.position.x >= 14.5f && !smokeAlertedOne)
+        if (player.transform.position.x >= 14.5f && !smokeAlertedOne && fireOn)
         {
             FindObjectOfType<DialogueManager>().EndDialogue();
             movable = false;
@@ -232,7 +243,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         //While in smoke
-        if (player.transform.position.x >= 21.5f && isLayDown == false)
+        if (player.transform.position.x >= 21.5f && isLayDown == false && fireOn)
         {
             FindObjectOfType<DialogueManager>().EndDialogue();
             movable = false;
@@ -260,8 +271,82 @@ public class PlayerInput : MonoBehaviour
                 FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
             }
 
-            Vector3 savePosition = new Vector3(this.transform.position.x - 3.0f, this.transform.position.y, 10.0f);
+            Vector3 savePosition = new Vector3(this.transform.position.x - 5.0f, this.transform.position.y, 10.0f);
             this.transform.position = savePosition;
+        }
+        else
+        {
+            movable = true;
+            talkable = true;
+        }
+
+        //Escaped Dialogue
+        if (player.transform.position.x >= 30f && isLayDown == true && fireOn)
+        {
+            FindObjectOfType<DialogueManager>().EndDialogue();
+            fireOn = false;
+            movable = false;
+            talkable = true;
+            speed = 0.0f;
+            moveSpeed = 0.0f;
+            animator.SetFloat("BlendTreeSpeed", 0.0f);
+            movement.SetSpeed(0.0f);
+
+            if (isLayDown)
+            {
+                movement.LowMove(speed, isLayDown, moveSpeed);
+            }
+            if (!isLayDown)
+            {
+                movement.HighMove(speed, isJumping, moveSpeed);
+            }
+
+            movement.StandUp(true);
+            isLayDown = false;
+
+            Dialogue dialogue = new Dialogue();
+            dialogue.sentences = escapeDialogue;
+            dialogue.name = "Ken";
+
+            if (talkable)
+            {
+                FindObjectOfType<DialogueManager>().StartDialogue(dialogue, true);
+            }
+        }
+        else
+        {
+            movable = true;
+            talkable = true;
+        }
+
+        //Get Out Dialogue
+        if (player.transform.position.x >= 37.5f && player.transform.position.x <= 40 && isLayDown == false && finishedOption && goOut)
+        {
+            FindObjectOfType<DialogueManager>().EndDialogue();
+            movable = false;
+            talkable = true;
+            speed = 0.0f;
+            moveSpeed = 0.0f;
+            animator.SetFloat("BlendTreeSpeed", 0.0f);
+            movement.SetSpeed(0.0f);
+
+            if (isLayDown)
+            {
+                movement.LowMove(speed, isLayDown, moveSpeed);
+            }
+            if (!isLayDown)
+            {
+                movement.HighMove(speed, isJumping, moveSpeed);
+            }
+
+            Dialogue dialogue = new Dialogue();
+            dialogue.sentences = doorDialogue;
+            dialogue.name = "Ken";
+
+            if (talkable)
+            {
+                FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+            }
         }
         else
         {

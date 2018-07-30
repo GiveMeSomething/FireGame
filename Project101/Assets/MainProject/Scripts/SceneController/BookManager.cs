@@ -10,6 +10,7 @@ public class BookManager : MonoBehaviour {
     public GameObject backButton;
     private Image leftNext;
     private Image rightNext;
+    public Text guideText;
 
     private void Start()
     {
@@ -22,6 +23,15 @@ public class BookManager : MonoBehaviour {
     void Update () {
         leftNext = book.LeftNext;
         rightNext = book.RightNext;
+
+        if(book.currentPage != 0)
+        {
+            guideText.gameObject.SetActive(false);
+        }
+        else
+        {
+            guideText.gameObject.SetActive(true);
+        }
 
         if (rightNext.sprite.name == "BlankPage")
         {
