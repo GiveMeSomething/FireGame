@@ -232,7 +232,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         //While in smoke
-        if (player.transform.position.x >= 21.5f && !smokeAlertedTwo)
+        if (player.transform.position.x >= 21.5f && isLayDown == false)
         {
             FindObjectOfType<DialogueManager>().EndDialogue();
             movable = false;
@@ -257,7 +257,6 @@ public class PlayerInput : MonoBehaviour
 
             if (talkable)
             {
-                smokeAlertedOne = true;
                 FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
             }
 
