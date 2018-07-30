@@ -70,6 +70,43 @@ public class PlayerInput : MonoBehaviour
             movable = true;
             talkable = true;
         }
+
+        if (player.transform.position.x >= 45)
+        {
+            movable = false;
+            talkable = true;
+            speed = 0.0f;
+            moveSpeed = 0.0f;
+            animator.SetFloat("BlendTreeSpeed", 0.0f);
+            movement.SetSpeed(0.0f);
+
+            if (isLayDown)
+            {
+                movement.LowMove(speed, isLayDown, moveSpeed);
+            }
+            if (!isLayDown)
+            {
+                movement.HighMove(speed, isJumping, moveSpeed);
+            }
+
+            Dialogue dialogue = new Dialogue();
+            dialogue.sentences = rightLimitAlertClass;
+            dialogue.name = "Ken";
+
+            if (talkable)
+            {
+                FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+            }
+
+            Vector3 savePosition = new Vector3(this.transform.position.x - 2.0f, this.transform.position.y, 10.0f);
+            this.transform.position = savePosition;
+        }
+        else
+        {
+            movable = true;
+            talkable = true;
+        }
+
         if (movable)
         {
             moveSpeed = 10.0f;
