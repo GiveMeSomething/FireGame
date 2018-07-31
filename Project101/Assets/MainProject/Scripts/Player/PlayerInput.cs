@@ -7,6 +7,9 @@ public class PlayerInput : MonoBehaviour
     private Control movement;
     private GameObject player;
     public GameObject smoke;
+    public AudioSource alarmSound;
+    public AudioSource backgroundSound;
+
     private bool isJumping = false;
     private bool isLayDown = false;
 
@@ -171,6 +174,8 @@ public class PlayerInput : MonoBehaviour
         if (player.transform.position.x <= 3.5 && !alerted)
         {
             FindObjectOfType<DialogueManager>().EndDialogue();
+            backgroundSound.Stop();
+            alarmSound.Play();
 
             movable = false;
             talkable = true;

@@ -22,6 +22,9 @@ public class DialogueManagerRoom : MonoBehaviour
     public Animator hintBox;
     public GameObject controller;
 
+    public AudioSource rightSound;
+    public AudioSource wrongSound;
+
     private bool clickable = false;
     private string currentHint;
 
@@ -128,6 +131,8 @@ public class DialogueManagerRoom : MonoBehaviour
         dialogue.name = "";
         dialogue.sentences = congrat;
 
+        rightSound.Play();
+
         FindObjectOfType<HintManager>().StartDialogue(dialogue);
     }
 
@@ -142,6 +147,8 @@ public class DialogueManagerRoom : MonoBehaviour
 
         dialogue.name = "";
         dialogue.sentences = hint;
+
+        wrongSound.Play();
 
         FindObjectOfType<HintManager>().StartDialogue(dialogue);
     }
