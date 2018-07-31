@@ -12,6 +12,7 @@ public class BookManager : MonoBehaviour {
     private Image rightNext;
     public Text guideText;
     public Button playSound;
+    public Button stopSound;
     public AudioSource audio;
 
     private void Start()
@@ -21,6 +22,8 @@ public class BookManager : MonoBehaviour {
 
         backButton.SetActive(false);
         playSound.gameObject.SetActive(false);
+        stopSound.gameObject.SetActive(false);
+
         audio = GetComponent<AudioSource>();
         audio.Stop();
     }
@@ -51,6 +54,10 @@ public class BookManager : MonoBehaviour {
         {
             playSound.gameObject.SetActive(true);
         }
+        else
+        {
+            playSound.gameObject.SetActive(false);
+        }
     }
 
     public void BackToMenu()
@@ -60,8 +67,16 @@ public class BookManager : MonoBehaviour {
 
     public void PlaySound()
     {
+        stopSound.gameObject.SetActive(true);
         audio.Play();
     }
 
-    
+    public void StopSound()
+    {
+        audio.Stop();
+        stopSound.gameObject.SetActive(false);
+    }
+
+
+
 }
