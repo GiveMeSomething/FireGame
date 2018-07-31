@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueManagerRoom : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class DialogueManagerRoom : MonoBehaviour
     public Button continueButton;
 
     private int counter = 0;
+    private int questionListSize = 0;
 
     public Animator animator;
     public Animator hintBox;
@@ -30,6 +32,11 @@ public class DialogueManagerRoom : MonoBehaviour
         choiceTwo.gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        PlayerStartDialogue player = controller.GetComponent<PlayerStartDialogue>();
+        questionListSize = player.questionlist.Count;
+    }
     public void StartDialogueRoom(Dialogue dialogue)
     {
         choiceOne.gameObject.SetActive(false);
@@ -78,6 +85,10 @@ public class DialogueManagerRoom : MonoBehaviour
     public void DisplayNextSentence()
     {
         FindObjectOfType<HintManager>().EndDialogue();
+        if(counter == questionListSize - 1)
+        {
+            SceneManager.LoadScene("CongratScene 1");
+        }
         if (questions.Count == 0)
         {
             PlayerStartDialogue dialogue = controller.GetComponent<PlayerStartDialogue>();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour {
 
@@ -85,8 +86,8 @@ public class DialogueManager : MonoBehaviour {
             noButton.gameObject.SetActive(true);
             continueButton.gameObject.SetActive(false);
 
-            yesButton.onClick.AddListener(GoOut);
-            noButton.onClick.AddListener(EndDialogue);
+            noButton.onClick.AddListener(GoOut);
+            yesButton.onClick.AddListener(EndDialogue);
         }
 
         StopAllCoroutines();
@@ -102,6 +103,7 @@ public class DialogueManager : MonoBehaviour {
     public void GoOut()
     {
         GameObject.Find("Main").GetComponent<PlayerInput>().goOut = true;
+        SceneManager.LoadScene("CongratScene");
     }
 
     IEnumerator TypeSentence(string sentence)

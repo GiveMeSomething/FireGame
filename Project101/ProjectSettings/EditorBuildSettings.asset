@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MainProject/Scenes/BookScene.unity
     guid: 4b39cd7f317c63f43bf06814ef4f9af8
+  - enabled: 1
+    path: Assets/MainProject/Scenes/Main2.unity
+    guid: 94d6148338a3385428b1ace0ccbc4daa
+  - enabled: 1
+    path: Assets/MainProject/Scenes/CongratScene 1.unity
+    guid: 427f5753747d36345a864bf8b826ab45
   m_configObjects: {}

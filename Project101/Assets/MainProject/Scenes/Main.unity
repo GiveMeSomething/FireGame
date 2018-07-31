@@ -946,7 +946,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Continue >>
+  m_Text: "Ti\u1EBFp Theo >>"
 --- !u!222 &701848304
 CanvasRenderer:
   m_ObjectHideFlags: 0
