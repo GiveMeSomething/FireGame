@@ -21,6 +21,7 @@ public class DialogueManagerRoom : MonoBehaviour
     public GameObject controller;
 
     private bool clickable = false;
+    private string currentHint;
 
     // Use this for initialization
     void Start()
@@ -52,12 +53,14 @@ public class DialogueManagerRoom : MonoBehaviour
     {
         choiceOne.gameObject.SetActive(true);
         choiceTwo.gameObject.SetActive(true);
+        continueButton.gameObject.SetActive(false);
 
         counter++;
 
         animator.SetBool("isOpen", true);
 
         nameText.text = dialogue.name;
+        currentHint = hint;
 
         choiceOne.GetComponentInChildren<Text>().text = rightAnswer;
         choiceTwo.GetComponentInChildren<Text>().text = wrongAnswer;
@@ -74,6 +77,7 @@ public class DialogueManagerRoom : MonoBehaviour
 
     public void DisplayNextSentence()
     {
+        FindObjectOfType<HintManager>().EndDialogue();
         if (questions.Count == 0)
         {
             PlayerStartDialogue dialogue = controller.GetComponent<PlayerStartDialogue>();
@@ -99,5 +103,35 @@ public class DialogueManagerRoom : MonoBehaviour
             dialogueText.text = dialogueText.text + letter;
             yield return null;
         }
+    }
+
+    public void RightAnswer()
+    {
+        choiceOne.gameObject.SetActive(false);
+        choiceTwo.gameObject.SetActive(false);
+        continueButton.gameObject.SetActive(true);
+        string[] congrat = { "Tốt quá. Bạn trả lời đúng rồi" };
+
+        Dialogue dialogue = new Dialogue();
+
+        dialogue.name = "";
+        dialogue.sentences = congrat;
+
+        FindObjectOfType<HintManager>().StartDialogue(dialogue);
+    }
+
+    public void WrongAnswer()
+    {
+        choiceOne.gameObject.SetActive(false);
+        choiceTwo.gameObject.SetActive(false);
+        continueButton.gameObject.SetActive(true);
+        string[] hint = { currentHint };
+
+        Dialogue dialogue = new Dialogue();
+
+        dialogue.name = "";
+        dialogue.sentences = hint;
+
+        FindObjectOfType<HintManager>().StartDialogue(dialogue);
     }
 }
