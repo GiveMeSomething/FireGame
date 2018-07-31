@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManagerRoom : MonoBehaviour {
-
-    private Queue<string> sentences;
+public class DialogueManagerRoom : MonoBehaviour
+{
+    private Queue<string> questions = new Queue<string>();
 
     public Text nameText;
     public Text dialogueText;
@@ -17,23 +17,25 @@ public class DialogueManagerRoom : MonoBehaviour {
     private int counter = 0;
 
     public Animator animator;
+    public Animator hintBox;
+
     // Use this for initialization
     void Start()
     {
 
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogueRoom(Dialogue dialogue)
     {
         animator.SetBool("isOpen", true);
 
         nameText.text = dialogue.name;
 
-        sentences.Clear();
+        questions.Clear();
 
         foreach (string sentence in dialogue.sentences)
         {
-            sentences.Enqueue(sentence);
+            questions.Enqueue(sentence);
         }
 
         DisplayNextSentence();
@@ -41,12 +43,12 @@ public class DialogueManagerRoom : MonoBehaviour {
 
     public void DisplayNextSentence()
     {
-        if (sentences.Count == 0)
+        if (questions.Count == 0)
         {
             EndDialogue();
             return;
         }
-        string sentence = sentences.Dequeue();
+        string sentence = questions.Dequeue();
 
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));

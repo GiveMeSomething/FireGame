@@ -17,6 +17,8 @@ public class DialogueManager : MonoBehaviour {
     private int counter = 0;
 
     public Animator animator;
+
+
     // Use this for initialization
     void Start() {
         sentences = new Queue<string>();
