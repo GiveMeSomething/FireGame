@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HintManager : MonoBehaviour {
+public class DialogueManagerRoom : MonoBehaviour {
 
     private Queue<string> sentences;
 
     public Text nameText;
     public Text dialogueText;
 
+    public Button choiceOne;
+    public Button choiceTwo;
+    public Button continueButton;
+
+    private int counter = 0;
+
     public Animator animator;
     // Use this for initialization
     void Start()
     {
-        sentences = new Queue<string>();
+
     }
 
     public void StartDialogue(Dialogue dialogue)
