@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MainProject/Scenes/CongratScene 1.unity
     guid: 427f5753747d36345a864bf8b826ab45
+  - enabled: 1
+    path: Assets/MainProject/Scenes/CongratScene.unity
+    guid: 64cf4f9ed76d67248a047e36a2512276
   m_configObjects: {}
